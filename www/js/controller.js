@@ -42,12 +42,16 @@ app.controller("FilloutController", function($scope, $http) {
   $scope.pendingQuestionnaires = [];
   $scope.url = "https://demo.roqua.nl/?token=" + $scope.token;
 
-  $http.post("https://demo.roqua.nl/client/session.json?token=" + $scope.token).then(function(response) {
-    console.log("Response: ", response.data.questionnaires);
-    $scope.pendingQuestionnaires = response.data.questionnaires;
-  }, function(error) {
-    console.log("HTTP Error", error)
-  });
+  $scope.refresh = function() {
+    $http.post("https://demo.roqua.nl/client/session.json?token=" + $scope.token).then(function(response) {
+      console.log("Response: ", response.data.questionnaires);
+      $scope.pendingQuestionnaires = response.data.questionnaires;
+    }, function(error) {
+      console.log("HTTP Error", error)
+    });
+  }
+
+
 
     // {key: 'oq45', name: 'OQ-45'},
     // {key: 'cqi', name: 'Klanttevredenheidslijst'},
