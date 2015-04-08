@@ -2,18 +2,12 @@
   <ion-content padding="true">
     <p>De volgende lijsten staan op dit moment klaar voor u om in te vullen:</p>
     <ion-list>
-      <ion-item>
-        OQ-45
-      </ion-item>
-      <ion-item>
-        Klanttevredenheidsvragenlijst
-      </ion-item>
-      <ion-item>
-        SBG-MDS
+      <ion-item ng-repeat="questionnaire in pendingQuestionnaires">
+        {{ questionnaire.name }}
       </ion-item>
     </ion-list>
-    <button class="button button-block button-positive icon-right ion-chevron-right">
+    <a class="button button-block button-positive icon-right ion-chevron-right" href="{{url}}">
       Beginnen met invullen
-    </button>
+    </a>
   </ion-content>
 </ion-view>

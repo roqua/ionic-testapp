@@ -10,7 +10,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.fillout', {
     url: '/fillout',
     views: {
-      'menuContent': {templateUrl: "templates/fillout.html"}
+      'menuContent': {
+        templateUrl: "templates/fillout.html",
+        controller: 'FilloutController'
+      }
     }
   });
 
@@ -34,9 +37,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-app.controller("LoginCtrl", function($scope) {
-  $scope.saveToken = function() {
-  };
+app.controller("FilloutController", function($scope, $http) {
+  $scope.token = "f5d56dc7";
+  $scope.pendingQuestionnaires = [];
+  $scope.url = "https://demo.roqua.nl/?token=" + $scope.token;
+
+  $http.post("https://demo.roqua.nl/client/session.json?token=" + $scope.token).then(function(response) {
+    console.log("Response: ", response.data.questionnaires);
+    $scope.pendingQuestionnaires = response.data.questionnaires;
+  }, function(error) {
+    console.log("HTTP Error", error)
+  });
+
+    // {key: 'oq45', name: 'OQ-45'},
+    // {key: 'cqi', name: 'Klanttevredenheidslijst'},
+    // {key: 'sbgmds', name: 'SBG-MDS'}
 });
 
 
